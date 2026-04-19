@@ -17,7 +17,7 @@ public class ReportController : ControllerBase
 
     // GET /api/reports/financial?period=daily|monthly|yearly
     [HttpGet("financial")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Staff")]
     public async Task<IActionResult> GetFinancialReport([FromQuery] string? period = "monthly")
     {
         var p = (period ?? "monthly").Trim().ToLower();

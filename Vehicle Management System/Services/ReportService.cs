@@ -28,10 +28,10 @@ public class ReportService : IReportService
         var txCount = await _context.SalesInvoices
             .CountAsync(i => i.IsPaid && i.SaleDate >= from && i.SaleDate <= to);
 
-        // Cost: sum of purchase invoices in range
-        var cost = await _context.PurchaseInvoices
-            .Where(i => i.PurchaseDate >= from && i.PurchaseDate <= to)
-            .SumAsync(i => (decimal?)i.TotalAmount) ?? 0m;
+        // Cost (COGS): sum of (Quantity * CostPrice) for all parts sold in this period
+        var cost = await _context.SalesInvoiceItems
+            .Where(item => item.SalesInvoice.IsPaid && item.SalesInvoice.SaleDate >= from && item.SalesInvoice.SaleDate <= to)
+            .SumAsync(item => (decimal?)(item.Quantity * item.Part.CostPrice)) ?? 0m;
 
         // Top 5 selling parts by quantity
         var topParts = await _context.SalesInvoiceItems
@@ -142,11 +142,12 @@ public class ReportService : IReportService
         var now = DateTime.UtcNow;
         return period.ToLower() switch
         {
-            "daily"   => (now.Date, now.Date.AddDays(1).AddTicks(-1)),
-            "monthly" => (new DateTime(now.Year, now.Month, 1),
-                          new DateTime(now.Year, now.Month, 1).AddMonths(1).AddTicks(-1)),
-            "yearly"  => (new DateTime(now.Year, 1, 1),
-                          new DateTime(now.Year + 1, 1, 1).AddTicks(-1)),
+            "daily"   => (DateTime.SpecifyKind(now.Date, DateTimeKind.Utc),
+                          DateTime.SpecifyKind(now.Date.AddDays(1).AddTicks(-1), DateTimeKind.Utc)),
+            "monthly" => (DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc),
+                          DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1).AddMonths(1).AddTicks(-1), DateTimeKind.Utc)),
+            "yearly"  => (DateTime.SpecifyKind(new DateTime(now.Year, 1, 1), DateTimeKind.Utc),
+                          DateTime.SpecifyKind(new DateTime(now.Year + 1, 1, 1).AddTicks(-1), DateTimeKind.Utc)),
             _ => throw new ArgumentException("Period must be 'daily', 'monthly', or 'yearly'.")
         };
     }

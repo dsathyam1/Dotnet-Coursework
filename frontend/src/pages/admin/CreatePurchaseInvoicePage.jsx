@@ -173,9 +173,10 @@ export default function CreatePurchaseInvoicePage() {
                     <button 
                       type="button" 
                       onClick={() => remove(index)}
-                      className="p-2 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
+                      className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
+                      title="Remove item"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={18} />
                     </button>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import api from '../../api/api';
 const fetchFinancial = () => api.get('/reports/financial?period=monthly').then(r => r.data);
 const fetchNotifications = () => api.get('/notifications').then(r => r.data);
 const fetchParts = () => api.get('/parts').then(r => r.data);
-const fetchStaff = () => api.get('/admin/staff').then(r => r.data);
+const fetchStaff = () => api.get('/staff').then(r => r.data);
 
 export default function AdminDashboard() {
   const { data: financial, isLoading: fLoading } = useQuery({ queryKey: ['report-financial-monthly'], queryFn: fetchFinancial });

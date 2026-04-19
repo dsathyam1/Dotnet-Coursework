@@ -26,9 +26,9 @@ function InvoiceDrawer({ invoiceId, onClose }) {
           <div className="p-6 space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Vendor</p><p className="font-semibold text-slate-800">{data.vendorName}</p></div>
-              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Admin</p><p className="font-semibold text-slate-800">{data.adminName}</p></div>
-              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Date</p><p className="font-semibold text-slate-800">{new Date(data.createdAt).toLocaleDateString()}</p></div>
-              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Total</p><p className="font-bold text-blue-600 text-lg">${Number(data.totalAmount).toFixed(2)}</p></div>
+              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Admin ID</p><p className="font-semibold text-slate-800">#{data.createdByAdminId}</p></div>
+              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Date</p><p className="font-semibold text-slate-800">{new Date(data.purchaseDate ?? data.createdAt).toLocaleDateString('en-NP', { year: 'numeric', month: 'short', day: 'numeric' })}</p></div>
+              <div className="bg-slate-50 rounded-xl p-4"><p className="text-xs text-slate-400 mb-1">Total</p><p className="font-bold text-blue-600 text-lg">NPR {Number(data.totalAmount).toLocaleString()}</p></div>
             </div>
             <div>
               <p className="text-sm font-semibold text-slate-700 mb-3">Line Items</p>
@@ -42,8 +42,8 @@ function InvoiceDrawer({ invoiceId, onClose }) {
                       <tr key={i}>
                         <td className="px-4 py-2 text-slate-800">{item.partName}</td>
                         <td className="px-4 py-2 text-right text-slate-600">{item.quantity}</td>
-                        <td className="px-4 py-2 text-right text-slate-600">${Number(item.unitCost).toFixed(2)}</td>
-                        <td className="px-4 py-2 text-right font-semibold text-slate-800">${Number(item.subtotal).toFixed(2)}</td>
+                        <td className="px-4 py-2 text-right text-slate-600">NPR {Number(item.unitCostPrice).toLocaleString()}</td>
+                        <td className="px-4 py-2 text-right font-semibold text-slate-800">NPR {Number(item.lineTotal).toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -111,9 +111,9 @@ export default function PurchaseInvoicesPage() {
                   <tr key={inv.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-4 py-3 font-mono text-slate-500 text-xs">#{inv.id}</td>
                     <td className="px-4 py-3 font-medium text-slate-800">{inv.vendorName}</td>
-                    <td className="px-4 py-3 text-slate-500">{inv.adminName}</td>
-                    <td className="px-4 py-3 text-slate-500">{new Date(inv.createdAt).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-right font-semibold text-blue-700">${Number(inv.totalAmount).toFixed(2)}</td>
+                    <td className="px-4 py-3 text-slate-500">Admin #{inv.createdByAdminId}</td>
+                    <td className="px-4 py-3 text-slate-500">{new Date(inv.purchaseDate ?? inv.createdAt).toLocaleDateString('en-NP', { year: 'numeric', month: 'short', day: 'numeric' })}</td>
+                    <td className="px-4 py-3 text-right font-semibold text-blue-700">NPR {Number(inv.totalAmount).toLocaleString()}</td>
                     <td className="px-4 py-3">
                       <div className="flex justify-end">
                         <button onClick={() => setDrawer(inv.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"><Eye size={14} /></button>
@@ -131,3 +131,5 @@ export default function PurchaseInvoicesPage() {
     </div>
   );
 }
+
+

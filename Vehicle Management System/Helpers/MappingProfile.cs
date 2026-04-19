@@ -82,7 +82,8 @@ public class MappingProfile : Profile
         CreateMap<SalesInvoice, SalesInvoiceResponseDto>()
             .ForMember(d => d.CustomerName,   o => o.MapFrom(s => s.Customer != null ? s.Customer.User.FullName : string.Empty))
             .ForMember(d => d.StaffName,      o => o.MapFrom(s => s.Staff != null ? s.Staff.User.FullName : string.Empty))
-            .ForMember(d => d.DiscountAmount, o => o.MapFrom(s => s.DiscountApplied ? s.TotalAmount / 9 : 0))
+            .ForMember(d => d.DiscountAmount, o => o.MapFrom(s =>
+                s.DiscountApplied ? Math.Round(s.TotalAmount / 0.9m * 0.1m, 2) : 0m))
             .ForMember(d => d.Items,          o => o.MapFrom(s => s.SalesInvoiceItems));
 
         CreateMap<SalesInvoiceItem, SalesInvoiceItemResponseDto>()
