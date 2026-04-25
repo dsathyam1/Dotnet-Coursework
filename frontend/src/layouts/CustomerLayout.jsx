@@ -21,7 +21,8 @@ const NAV_ITEMS = [
   { to: '/customer/appointments', label: 'Appointments',   icon: Calendar },
   { to: '/customer/history',      label: 'Service History', icon: FileText },
   { to: '/customer/parts',        label: 'Browse Parts',   icon: ShoppingCart },
-  { to: '/customer/request-part', label: 'Request Part',   icon: PackageSearch },
+  { to: '/customer/part-requests',label: 'My Requests',    icon: PackageSearch },
+  { to: '/customer/request-part', label: 'New Request',    icon: PackageSearch },
   { to: '/customer/reviews',      label: 'Feedback',       icon: Star },
 ];
 

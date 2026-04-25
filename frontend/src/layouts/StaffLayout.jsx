@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { to: '/staff/dashboard', label: 'Dashboard',       icon: LayoutDashboard },
   { to: '/staff/customers', label: 'Customers',       icon: Users },
   { to: '/staff/sales/new', label: 'New Sale',        icon: ShoppingCart },
+  { to: '/staff/invoices',  label: 'Sales Invoices',  icon: FileText },
   { to: '/staff/parts',     label: 'Inventory',       icon: Package },
   { to: '/staff/reports',    label: 'Reports',         icon: BarChart2 },
   { to: '/staff/tasks',     label: 'My Tasks',        icon: ClipboardList },

@@ -34,6 +34,7 @@ import StaffRegisterCustomerPage from './pages/staff/StaffRegisterCustomerPage';
 import StaffCreateSalesInvoicePage from './pages/staff/StaffCreateSalesInvoicePage';
 import StaffReportsPage          from './pages/staff/StaffReportsPage';
 import StaffPartsPage            from './pages/staff/StaffPartsPage';
+import StaffTasksPage            from './pages/staff/StaffTasksPage';
 
 // Customer pages
 import CustomerDashboard       from './pages/customer/CustomerDashboard';
@@ -41,6 +42,7 @@ import CustomerProfilePage     from './pages/customer/CustomerProfilePage';
 import CustomerHistoryPage     from './pages/customer/CustomerHistoryPage';
 import CustomerAppointmentsPage from './pages/customer/CustomerAppointmentsPage';
 import CustomerRequestPartPage  from './pages/customer/CustomerRequestPartPage';
+import CustomerPartRequestsPage from './pages/customer/CustomerPartRequestsPage';
 import CustomerReviewsPage      from './pages/customer/CustomerReviewsPage';
 import CustomerPartsPage       from './pages/customer/CustomerPartsPage';
 
@@ -86,9 +88,10 @@ export default function App() {
               <Route path="/staff/customers/new" element={<StaffRegisterCustomerPage />} />
               <Route path="/staff/customers/:id" element={<StaffCustomerDetailPage />} />
               <Route path="/staff/sales/new" element={<StaffCreateSalesInvoicePage />} />
+              <Route path="/staff/invoices"  element={<SalesInvoicesPage />} />
               <Route path="/staff/parts"     element={<StaffPartsPage />} />
               <Route path="/staff/reports"   element={<StaffReportsPage />} />
-              <Route path="/staff/tasks"     element={<PlaceholderPage title="Staff Tasks" />} />
+              <Route path="/staff/tasks"     element={<StaffTasksPage />} />
             </Route>
           </Route>
 
@@ -99,6 +102,7 @@ export default function App() {
               <Route path="/customer/profile"      element={<CustomerProfilePage />} />
               <Route path="/customer/history"      element={<CustomerHistoryPage />} />
               <Route path="/customer/appointments" element={<CustomerAppointmentsPage />} />
+              <Route path="/customer/part-requests" element={<CustomerPartRequestsPage />} />
               <Route path="/customer/request-part" element={<CustomerRequestPartPage />} />
               <Route path="/customer/reviews"      element={<CustomerReviewsPage />} />
               <Route path="/customer/parts"        element={<CustomerPartsPage />} />
